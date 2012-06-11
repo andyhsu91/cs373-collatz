@@ -37,7 +37,7 @@ def collatz_read (r, a) :
 # collatz_cycles
 # --------------
 
-def collatz_cycles (n) :
+def collatz_cycles (cache, cachelen, n) :
 	"""
     returns the cycle length of n
     taken from assertion.py example
@@ -46,6 +46,9 @@ def collatz_cycles (n) :
 	assert n > 0
 	c = 1
 	while n > 1 :
+		if n < cachelen and cache[n] != 0 :
+			c += cache[n] - 1
+			break		
 		if (n % 2) == 0 :
 			n = (n / 2)
 		else :
@@ -75,9 +78,23 @@ def collatz_eval (i, j) :
 		low = j
 		high = i
 	v = 1
-    
+
+	cachelen = high + 1
+	cache = [0] * cachelen	# Cache of size inclusive range
+	
+	twos = 1	
+	twoscnt = 1
+	while twos < cachelen :	# Introduce powers of two into cache
+		cache[twos] = twoscnt
+		twos *= 2
+		twoscnt += 1		
+
 	while low < high :
-		n = collatz_cycles(low)
+		n = collatz_cycles(cache, cachelen, low)
+		if cache[low] != 0 :
+			assert n == cache[low]		
+		else :		
+			cache[low] = n	# Save cycle length
 		if n > v :
 			v = n
 		low += 1
@@ -113,16 +130,6 @@ def collatz_solve (r, w) :
 	while collatz_read(r, a) :
 		v = collatz_eval(a[0], a[1])
 		collatz_print(w, a[0], a[1], v)
-        
-"""
-To run the program
-    % python RunCollatz.py < RunCollatz.in > RunCollatz.out
-    % chmod ugo+x RunCollatz.py
-    % RunCollatz.py < RunCollatz.in > RunCollatz.out
-
-To document the program
-    % pydoc -w Collatz
-"""
 
 #
 # ----
