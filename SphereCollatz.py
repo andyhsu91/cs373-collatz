@@ -68,14 +68,19 @@ def collatz_eval (i, j) :
 	assert j > 0
     
 	# <your code>
-	assert i < j
+	if i < j :
+		low = i
+		high = j
+	else :
+		low = j
+		high = i
 	v = 1
     
-	while i < j :
-		n = collatz_cycles(i)
+	while low < high :
+		n = collatz_cycles(low)
 		if n > v :
 			v = n
-		i += 1
+		low += 1
     
 	assert v > 0
 	return v
