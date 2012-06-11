@@ -62,11 +62,12 @@ def collatz_cycles (cache, cachelen, n) :
 # collatz_cache_init
 # ------------------
 	"""
-	Initializes the given cache by pre-setting
-	all powers of 2
+	high is the end of the range, inclusive
+	cache
+	Initializes and returns a cache by pre-setting all powers of 2
 	"""
 
-def collatz_cache_init (high, cachelen) :
+def collatz_cache_init (cachelen) :
 	
 	cache = [0] * cachelen	# Cache of size inclusive range
 	
@@ -101,7 +102,7 @@ def collatz_eval (i, j) :
 	v = 1
 
 	cachelen = 100 * high 
-	cache = collatz_cache_init(high, cachelen)
+	cache = collatz_cache_init(cachelen)
 
 	while low < high :
 		n = collatz_cycles(cache, cachelen, low)
