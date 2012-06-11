@@ -27,6 +27,27 @@ def collatz_read (r, a) :
     assert a[1] > 0
     return True
 
+# --------------
+# collatz_cycles
+# --------------
+
+def collatz_cycles (n) :
+	"""
+    returns the cycle length of n
+    taken from assertion.py example
+    """
+
+	assert n > 0
+	c = 1
+	while n > 1 :
+		if (n % 2) == 0 :
+			n = (n / 2)
+		else :
+			n = (3 * n) + 1
+		c += 1
+	assert c > 0
+	return c
+
 # ------------
 # collatz_eval
 # ------------
@@ -39,8 +60,17 @@ def collatz_eval (i, j) :
     """
     assert i > 0
     assert j > 0
+    assert i < j
+    
     # <your code>
     v = 1
+    
+    while i < j :
+    	n = collatz_cycles(i)
+    	if n > v :
+    		v = n
+    	i += 1
+    
     assert v > 0
     return v
 
@@ -72,3 +102,7 @@ def collatz_solve (r, w) :
     while collatz_read(r, a) :
         v = collatz_eval(a[0], a[1])
         collatz_print(w, a[0], a[1], v)
+        
+        
+        
+        
