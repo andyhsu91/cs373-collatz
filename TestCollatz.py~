@@ -19,6 +19,7 @@ To test the program:
 
 import StringIO
 import unittest
+import random  # Acceptance generation
 
 from Collatz import collatz_read, collatz_cycles, collatz_cache_init, collatz_eval, collatz_print, collatz_solve
 
@@ -213,6 +214,13 @@ class TestCollatz (unittest.TestCase) :
 # ----
 
 print "TestCollatz.py"
+
+# Used to pipe random ranges for acceptance to a file
+# Uncomment lines 206-207 to reenable use
+
+#for x in range(0, 2000) :
+#	print str(random.randrange(1, 100000)) + " " + str(random.randrange(1, 100000))
+
 unittest.main()
 print "Done."
 

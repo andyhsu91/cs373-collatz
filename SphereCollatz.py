@@ -112,7 +112,7 @@ def collatz_eval (i, j) :
 		if n > v :
 			v = n
 		low += 1
-    
+
 	assert v > 0
 	return v
 

@@ -107,6 +107,11 @@ def collatz_eval (i, j) :
 			v = n
 		low += 1
 
+	for x in range(0, 51) :
+		print str(cache[x])
+    
+
+
 	assert v > 0
 	return v
 
