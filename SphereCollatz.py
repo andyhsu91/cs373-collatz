@@ -51,9 +51,10 @@ def collatz_cycles (cache, cachelen, n) :
 			break		
 		if (n % 2) == 0 :
 			n = (n / 2)
+			c += 1
 		else :
-			n = (3 * n) + 1
-		c += 1
+			n = n + (n >> 1) + 1
+			c += 2
 	assert c > 0
 	return c
 
@@ -79,7 +80,7 @@ def collatz_eval (i, j) :
 		high = i
 	v = 1
 
-	cachelen = high + 1
+	cachelen = 100 * high 
 	cache = [0] * cachelen	# Cache of size inclusive range
 	
 	twos = 1	
