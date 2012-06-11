@@ -52,6 +52,26 @@ def collatz_cycles (cache, cachelen, n) :
 	assert c > 0
 	return c
 
+# ------------------
+# collatz_cache_init
+# ------------------
+	"""
+	Initializes the given cache by pre-setting
+	all powers of 2
+	"""
+
+def collatz_cache_init (high, cachelen) :
+	
+	cache = [0] * cachelen	# Cache of size inclusive range
+	
+	twos = 1	
+	twoscnt = 1
+	while twos < cachelen :	# Introduce powers of two into cache
+		cache[twos] = twoscnt
+		twos *= 2
+		twoscnt += 1		
+	return cache
+
 # ------------
 # collatz_eval
 # ------------
@@ -74,15 +94,8 @@ def collatz_eval (i, j) :
 		high = i
 	v = 1
 
-	cachelen = 100 * high
-	cache = [0] * cachelen	# Cache of size inclusive range
-	
-	twos = 1	
-	twoscnt = 1
-	while twos < cachelen :	# Introduce powers of two into cache
-		cache[twos] = twoscnt
-		twos *= 2
-		twoscnt += 1		
+	cachelen = 100 * high 
+	cache = collatz_cache_init(high, cachelen)
 
 	while low < high :
 		n = collatz_cycles(cache, cachelen, low)
